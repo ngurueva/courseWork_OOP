@@ -161,6 +161,5 @@ public class People {
 
     public void addPeople(People person) throws SQLException {
         this.list.add(person);
-        this.repository.addPeople(person);
     }
 }

@@ -55,10 +55,22 @@ public class HelloController implements Initializable {
     public void addPerson() throws IOException {
         AddWindow addWindow = new AddWindow();
         addWindow.openAddWindow();
+
+
+
+
     }
     public void editPerson() throws IOException {
-        EditWindow editWindow = new EditWindow();
-        editWindow.openEditWindow();
+
+        People selectedPerson = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedPerson != null) {
+
+            EditWindow editWindow = new EditWindow(selectedPerson);
+            editWindow.openEditWindow();
+
+        }
+
     }
 
     public void deletePerson() {
@@ -72,24 +84,6 @@ public class HelloController implements Initializable {
     public void saveTree() {
     }
 
-    private final ObservableList<People> data= FXCollections.observableArrayList();
-    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        try {
-//            addInfAbout();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        colSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
-//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        colPatronymic.setCellValueFactory(new PropertyValueFactory<>("patronymic"));
-//        colNickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
-//        colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
-//        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-//
-//        // Установить данные в таблицу
-//        treeTableView.setItems(data);
-//    }
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Создать столбцы таблицы
         colSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
@@ -134,21 +128,12 @@ public class HelloController implements Initializable {
             if (selectedPerson != null) {
 
                 PersonCard personCard = new PersonCard(selectedPerson);
-                personCard.openCard();
+
+
+//                personCard.openCard();
 
             }
 
         }
     }
-//    private void addInfAbout() throws SQLException {
-//        dbWorker.initDB();
-////        ResultSet people = dbWorker.getAllPeople();
-//        ArrayList<People> peopleList = dbWorker.getAllPeople();
-//        ObservableList<People> observablePeopleList = FXCollections.observableArrayList(peopleList);
-//        treeTableView.setItems(observablePeopleList);
-//
-//    }
-//
-
-
 }

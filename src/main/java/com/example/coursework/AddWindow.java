@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 
 
 public class AddWindow{
+    DBWorker dbWorker=new DBWorker();
     public TextField textFieldSurname;
     public TextField textFieldName;
     public TextField textFieldPatronymic;
@@ -34,7 +35,7 @@ public class AddWindow{
 
     Stage stage = new Stage();
     public void openAddWindow() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-window.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image("file:C:/Users/Наталья/Downloads/free-icon-tree-4319592.png"));
         stage.setTitle("Добавление");
@@ -68,7 +69,8 @@ public class AddWindow{
         ObservableList<String> selectedValues = listViewChildern.getSelectionModel().getSelectedItems();
         String infoText = textFieldInfo.getText();
 
-        People person = new People(100, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, "", infoText);
+        People person = new People(111, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, "", infoText);
+        dbWorker.addPeople(person);
         person.addPeople(person);
 
     }

@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<SplitPane dividerPositions="0.2566964285714286" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.AddWindow">
+<SplitPane dividerPositions="0.2566964285714286" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.EditWindow">
     <items>
         <BorderPane prefHeight="200.0" prefWidth="200.0">
             <center>
@@ -52,7 +52,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <DatePicker prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <DatePicker fx:id="textFieldDateOfBirth" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                         <Label alignment="CENTER" text="Дата смерти" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                             <padding>
                                 <Insets right="20.0" />
@@ -62,18 +62,18 @@
                                 <Insets right="20.0" />
                             </padding></Label>
                         <Label text="Информация" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="CENTER" />
-                        <TextField maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
-                        <TextField maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <TextField fx:id="textFieldSurname" maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER" />
+                        <TextField fx:id="textFieldName" maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                         <Label alignment="CENTER" text="Дата рождения" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                             <padding>
                                 <Insets right="20.0" />
                             </padding></Label>
-                        <TextField maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <TextField fx:id="textFieldPatronymic" maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <Label alignment="CENTER" text="Прозвище" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                             <padding>
                                 <Insets right="20.0" />
                             </padding></Label>
-                        <TextField maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                        <TextField fx:id="textFieldNickname" maxWidth="120.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                         <Label alignment="CENTER" text="Отчество" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <padding>
                                 <Insets right="20.0" />
@@ -82,14 +82,14 @@
                             <padding>
                                 <Insets right="20.0" />
                             </padding></Label>
-                        <DatePicker prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                        <TextArea prefHeight="200.0" prefWidth="147.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                        <DatePicker fx:id="textFieldDateOfDeath" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                        <TextArea fx:id="textFieldInfo" prefHeight="200.0" prefWidth="147.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets left="20.0" right="20.0" />
                             </GridPane.margin></TextArea>
-                        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Отмена" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
-                        <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Сохранить" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
-                        <MenuButton mnemonicParsing="false" prefWidth="100.0" text="Пол" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
+                        <Button fx:id="BtnCancel" mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Отмена" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
+                        <Button fx:id="BtnSave" mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Сохранить" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
+                        <MenuButton fx:id="menuButtonGender" mnemonicParsing="false" prefWidth="100.0" text="Пол" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="жен" />
                                 <MenuItem mnemonicParsing="false" text="муж" />
@@ -115,10 +115,10 @@
                                 <Insets right="20.0" />
                             </padding>
                         </Label>
-                        <ComboBox prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <ChoiceBox prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <ComboBox prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <ListView maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="comboBoxMom" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="comboBoxDad" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="comboBoxSpouse" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ListView fx:id="listViewChildern" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                     </children>
                 </GridPane>
             </children></AnchorPane>

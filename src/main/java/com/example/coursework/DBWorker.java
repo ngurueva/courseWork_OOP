@@ -7,6 +7,7 @@ import com.example.coursework.*;
 import javafx.collections.ObservableList;
 
 public class DBWorker implements Repository{
+    ArrayList<People> list = new ArrayList<People>();
     protected People repository;
     private static String jdbUrl = "jdbc:sqlite:C:\\SQLite\\sqlite-tools-win-x64-3450200\\tree.db";
     private static Connection connection;
@@ -93,9 +94,8 @@ public class DBWorker implements Repository{
 
 
 
-    private ObservableList<People> list = null;
+
     public ArrayList<People> getAllPeople() throws SQLException {
-        ArrayList<People> list = new ArrayList<People>();
         Connection conn = DriverManager.getConnection(jdbUrl);
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM people;");
@@ -124,6 +124,7 @@ public class DBWorker implements Repository{
         Statement statement = connection.createStatement();
         statement.executeUpdate("insert into people values (" + people.getId() + ", '" + people.getSurname() + "', '" + people.getName() + "', '" + people.getPatronymic() + "', '" + people.getNickname() + "', '" + people.getDataOfBirth() + "', '" + people.getDateOfDeath() + "', '" + people.getGender() + "', '" + people.getPhoto() + "', '" + people.getInfo() + "');");
         System.out.println("people добавлен в БД");
+
 
         System.out.println("Соединения закрыты");
         connection.close();
