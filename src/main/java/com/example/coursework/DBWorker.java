@@ -130,6 +130,29 @@ public class DBWorker implements Repository{
         connection.close();
     }
 
+    @Override
+    public void deletePeople(People people) throws SQLException {
+        connection = DriverManager.getConnection(jdbUrl);
+        System.out.println("БД подключена!");
+        Statement statement = connection.createStatement();
+
+        statement.executeUpdate("delete from people WHERE id = " + people.getId() + ";");
+        statement.close();
+
+        System.out.println("Данные из таблиц удалены");
+
+        connection.close();
+        System.out.println("Соединения закрыты");
+    }
+
+    public void truncateTable(String tableName) throws SQLException {
+        String sql = String.format("TRUNCATE TABLE %s", tableName);
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql);
+        }
+    }
+
+
 //    @Override
 //    public ArrayList<PrinteredEdition> getAllEditions() throws SQLException {
 //        ArrayList<PrinteredEdition> list = new ArrayList<PrinteredEdition>();

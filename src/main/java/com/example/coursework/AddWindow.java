@@ -69,7 +69,7 @@ public class AddWindow{
         ObservableList<String> selectedValues = listViewChildern.getSelectionModel().getSelectedItems();
         String infoText = textFieldInfo.getText();
 
-        People person = new People(111, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, "", infoText);
+        People person = new People(hashCode(), surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, "", infoText);
         dbWorker.addPeople(person);
         person.addPeople(person);
 

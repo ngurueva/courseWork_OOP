@@ -162,4 +162,5 @@ public class People {
     public void addPeople(People person) throws SQLException {
         this.list.add(person);
     }
+
 }

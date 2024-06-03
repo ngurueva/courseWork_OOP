@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface Repository {
     ArrayList<People> getAllPeople() throws SQLException;
     void addPeople(People people) throws SQLException;
+    void deletePeople(People people) throws SQLException;
 
 
 }

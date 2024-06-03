@@ -26,7 +26,8 @@ import java.util.ResourceBundle;
 public class HelloController implements Initializable {
     public HelloController() {
     }
-
+    ArrayList<People> peopleList = null;
+    ObservableList<People> observablePeopleList;
     public Button addBtn;
     public Button editBtn;
     public Button deleteBtn;
@@ -40,7 +41,7 @@ public class HelloController implements Initializable {
     public Button ImgSaveBtn;
     public Button ImgCloseBtn;
 
-//    ObservableList<People> tree = new ObservableList<People>(getTree);
+    //    ObservableList<People> tree = new ObservableList<People>(getTree);
     public TableView<People> tableView;
     public TableColumn<People, String> colSurname;
     public TableColumn<People, String> colName;
@@ -55,25 +56,22 @@ public class HelloController implements Initializable {
     public void addPerson() throws IOException {
         AddWindow addWindow = new AddWindow();
         addWindow.openAddWindow();
-
-
-
-
+        refreshTable();
     }
     public void editPerson() throws IOException {
-
         People selectedPerson = tableView.getSelectionModel().getSelectedItem();
-
         if (selectedPerson != null) {
-
-            EditWindow editWindow = new EditWindow(selectedPerson);
-            editWindow.openEditWindow();
-
+            EditWindow editWindow = new EditWindow();
+            editWindow.openEditWindow(selectedPerson);
+            refreshTable();
         }
-
     }
 
-    public void deletePerson() {
+    public void deletePerson() throws SQLException {
+        People selectedPerson = tableView.getSelectionModel().getSelectedItem();
+        dbWorker.deletePeople(selectedPerson);
+
+        refreshTable();
     }
 
     public void openTree() {
@@ -93,47 +91,33 @@ public class HelloController implements Initializable {
         colAge.setCellValueFactory(new PropertyValueFactory<>("dataOfBirth"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
-        // Добавить столбцы в таблицу
-//        tableView.getColumns().addAll(colSurname, colName, colPatronymic, colNickname, colAge, colGender);
-
         // Создать список людей
         dbWorker.initDB();
         // Заполнить список людьми
-        ArrayList<People> peopleList = null;
+
         try {
             peopleList = dbWorker.getAllPeople();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         // Преобразовать список людей в ObservableList
-        ObservableList<People> observablePeopleList = FXCollections.observableArrayList(peopleList);
+        observablePeopleList = FXCollections.observableArrayList(peopleList);
 
         // Установить ObservableList в таблицу
         tableView.setItems(observablePeopleList);
     }
 
-
-    public static int getAge(String dateOfBirth) {
-
-        LocalDate localDate = LocalDate.parse(dateOfBirth);
-        LocalDate today = LocalDate.now();
-        Period period = Period.between(localDate, today);
-        return period.getYears();
-    }
-
     public void openCard(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) { // Проверяем, был ли двойной клик
             People selectedPerson = tableView.getSelectionModel().getSelectedItem();
-
             if (selectedPerson != null) {
-
-                PersonCard personCard = new PersonCard(selectedPerson);
-
-
-//                personCard.openCard();
-
+                PersonCard personCard = new PersonCard();
+                personCard.openCard(selectedPerson);
             }
 
         }
     }
+
+
+
 }
