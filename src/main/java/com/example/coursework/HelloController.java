@@ -10,14 +10,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import com.example.coursework.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class HelloController {
+public class HelloController implements Initializable {
+    public HelloController() {
+    }
 
     public Button addBtn;
     public Button editBtn;
@@ -33,13 +41,14 @@ public class HelloController {
     public Button ImgCloseBtn;
 
 //    ObservableList<People> tree = new ObservableList<People>(getTree);
-//    public TreeTableView<People> treeTableView;
-//    public TableColumn<People, String> colSurname;
-//    public TableColumn<People, String> colName;
-//    public TableColumn<People, String> colPatronymic;
-//    public TableColumn<People, String> colNickname;
-//    public TableColumn<People, Integer> colAge;
-//    public TableColumn<People, String> colGender;
+    public TableView<People> tableView;
+    public TableColumn<People, String> colSurname;
+    public TableColumn<People, String> colName;
+    public TableColumn<People, String> colPatronymic;
+    public TableColumn<People, String> colNickname;
+    public TableColumn<People, String> colAge;
+    public TableColumn<People, String> colGender;
+    DBWorker dbWorker=new DBWorker();
 
 
 
@@ -63,13 +72,83 @@ public class HelloController {
     public void saveTree() {
     }
 
-//    // Создать TableView
-//    TableView<String> tableView = new TableView<>();
+    private final ObservableList<People> data= FXCollections.observableArrayList();
+    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        try {
+//            addInfAbout();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        colSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
+//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+//        colPatronymic.setCellValueFactory(new PropertyValueFactory<>("patronymic"));
+//        colNickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
+//        colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+//        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
 //
-//    // Установить ObservableList в качестве элементов TableView
-//        tableView.setItems(treeList);
+//        // Установить данные в таблицу
+//        treeTableView.setItems(data);
+//    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Создать столбцы таблицы
+        colSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPatronymic.setCellValueFactory(new PropertyValueFactory<>("patronymic"));
+        colNickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
+        colAge.setCellValueFactory(new PropertyValueFactory<>("dataOfBirth"));
+        colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+
+        // Добавить столбцы в таблицу
+//        tableView.getColumns().addAll(colSurname, colName, colPatronymic, colNickname, colAge, colGender);
+
+        // Создать список людей
+        dbWorker.initDB();
+        // Заполнить список людьми
+        ArrayList<People> peopleList = null;
+        try {
+            peopleList = dbWorker.getAllPeople();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        // Преобразовать список людей в ObservableList
+        ObservableList<People> observablePeopleList = FXCollections.observableArrayList(peopleList);
+
+        // Установить ObservableList в таблицу
+        tableView.setItems(observablePeopleList);
+    }
+
+
+    public static int getAge(String dateOfBirth) {
+
+        LocalDate localDate = LocalDate.parse(dateOfBirth);
+        LocalDate today = LocalDate.now();
+        Period period = Period.between(localDate, today);
+        return period.getYears();
+    }
+
+    public void openCard(MouseEvent mouseEvent) throws IOException {
+        if (mouseEvent.getClickCount() == 2) { // Проверяем, был ли двойной клик
+            People selectedPerson = tableView.getSelectionModel().getSelectedItem();
+
+            if (selectedPerson != null) {
+
+                PersonCard personCard = new PersonCard(selectedPerson);
+                personCard.openCard();
+
+            }
+
+        }
+    }
+//    private void addInfAbout() throws SQLException {
+//        dbWorker.initDB();
+////        ResultSet people = dbWorker.getAllPeople();
+//        ArrayList<People> peopleList = dbWorker.getAllPeople();
+//        ObservableList<People> observablePeopleList = FXCollections.observableArrayList(peopleList);
+//        treeTableView.setItems(observablePeopleList);
 //
-//    // Отобразить TableView
-//        tableView.show();
+//    }
+//
+
 
 }

@@ -1,10 +1,14 @@
 package com.example.coursework;
 
+import javafx.collections.ObservableList;
+
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class People {
-//    private ArrayList<People> list = new ArrayList<>();
+    private ArrayList<People> list = new ArrayList<>();
+    protected Repository repository;
     protected int id;
     protected String surname;
     protected String name;
@@ -14,6 +18,7 @@ public class People {
     protected String dateOfDeath;
     protected String gender;
     protected Image photo;
+    protected String phot;
     protected String info;
     protected String fullName;
     protected int age;
@@ -37,6 +42,21 @@ public class People {
         this.age = age;
 
     }
+
+    public People(int id, String surname, String name, String patronymic, String nickname, String dataOfBirth, String dateOfDeath, String gender, String photo, String info) {
+        this.id = id;
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.nickname = nickname;
+        this.dataOfBirth = dataOfBirth;
+        this.dateOfDeath = dateOfDeath;
+        this.gender = gender;
+        this.phot = photo;
+        this.info = info;
+    }
+
+
 
     public int getId() {
         return id;
@@ -136,5 +156,11 @@ public class People {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+
+    public void addPeople(People person) throws SQLException {
+        this.list.add(person);
+        this.repository.addPeople(person);
     }
 }

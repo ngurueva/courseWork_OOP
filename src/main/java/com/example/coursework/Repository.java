@@ -1,5 +1,13 @@
 package com.example.coursework;
 
-public class Repository {
-//    void addPerson(People people);
+import javafx.collections.ObservableList;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public interface Repository {
+    ArrayList<People> getAllPeople() throws SQLException;
+    void addPeople(People people) throws SQLException;
+
+
 }
