@@ -50,20 +50,55 @@ public class DBWorker implements Repository{
             e.printStackTrace();
         }
     }
+//    public void editPeople(People people) throws SQLException {
+//        connection = DriverManager.getConnection(jdbUrl);
+//        System.out.println("БД подключена!");
+//
+//        Statement statement = connection.createStatement();
+//            statement.executeUpdate("update people set surname = '"+people.getSurname()+ "', name = '" + people.getName() + "', patronymic = '" + people.getPatronymic() + "', nickname = '" + people.getNickname() + "', dataOfBirth = '" + people.getDataOfBirth() + "', dateOfDeath = '" + people.getDateOfDeath() + "', gender = '" + people.getGender() + "', photo = '" + people.getPhoto() + "', info = '" + people.getInfo() + "' where id="+people.getId()+" ;");
+//            System.out.println("данные о человеке изменены");
+//
+//
+//        statement.close();
+//
+//        connection.close();
+//        System.out.println("Соединения закрыты");
+//    }
+
     public void editPeople(People people) throws SQLException {
         connection = DriverManager.getConnection(jdbUrl);
         System.out.println("БД подключена!");
 
-        Statement statement = connection.createStatement();
-            statement.executeUpdate("update people set surname='"+people.getSurname()+ "', name = '" + people.getName() + "', patronymic = '" + people.getPatronymic() + "', nickname = '" + people.getNickname() + "', dataOfBirth = '" + people.getDataOfBirth() + "', dateOfDeath = '" + people.getDateOfDeath() + "', gender = '" + people.getGender() + "', photo = '" + people.getPhoto() + "', info = '" + people.getInfo() + "' where id="+people.getId()+" ;");
-            System.out.println("данные о человеке изменены");
+        try (PreparedStatement statement = connection.prepareStatement(
+                "update people set surname=?, name=?, patronymic=?, nickname=?, dataOfBirth=?, dateOfDeath=?, gender=?, photo=?, info=? where id=?")) {
 
+            statement.setString(1, people.getSurname());
+            statement.setString(2, people.getName());
+            statement.setString(3, people.getPatronymic());
+            statement.setString(4, people.getNickname());
+            statement.setString(5, people.getDataOfBirth()); // Предполагается, что это строка, а не дата
+            statement.setString(6, people.getDateOfDeath()); // Предполагается, что это строка, а не дата
+            statement.setString(7, people.getGender());
+            statement.setString(8, people.getPhoto());
+            statement.setString(9, people.getInfo());
+            statement.setInt(10, people.getId()); // Предполагается, что id - целое число
 
-        statement.close();
+            int rowsUpdated = statement.executeUpdate();
 
-        connection.close();
-        System.out.println("Соединения закрыты");
+            System.out.println(people.id + " - " + people.getSurname());
+            if (rowsUpdated > 0) {
+                System.out.println("Данные о человеке изменены.");
+            } else {
+                System.out.println("Не удалось обновить данные о человеке.");
+            }
+        } finally {
+            if (connection != null) {
+                connection.close();
+                System.out.println("Соединения закрыты");
+            }
+        }
     }
+
 //    public ResultSet getAllPeople() {
 //        String getPeople="SELECT * FROM people";
 //        PreparedStatement prSt = null;

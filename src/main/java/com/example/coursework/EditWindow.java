@@ -39,8 +39,11 @@ public class EditWindow {
     public Image image;
     public People person;
     private String filePath;
+    private static int idPerson;
 
 public void openEditWindow(People people) throws IOException {
+    idPerson = people.getId();
+
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-window.fxml"));
     Scene scene = new Scene(fxmlLoader.load());
 
@@ -67,7 +70,7 @@ public void openEditWindow(People people) throws IOException {
     }
     controller.menuButtonGender.setText(people.getGender());
 
-    Stage stage = new Stage();
+
     stage.getIcons().add(new Image("file:C:/Users/Наталья/Downloads/free-icon-tree-4319592.png"));
     stage.setTitle("Редактирование");
     stage.setMinWidth(320);
@@ -82,7 +85,7 @@ public void openEditWindow(People people) throws IOException {
 }
 
     public void edit() throws SQLException {
-
+        int id = idPerson;
         String surnameText = textFieldSurname.getText();
         String nameText = textFieldName.getText();
         String patronymicText = textFieldPatronymic.getText();
@@ -102,14 +105,17 @@ public void openEditWindow(People people) throws IOException {
         ObservableList<String> selectedValues = listViewChildern.getSelectionModel().getSelectedItems();
         String infoText = textFieldInfo.getText();
 
-        person = new People(hashCode(), surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, ("file:" + filePath), infoText);
+        person = new People(id, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, ("file:" + filePath), infoText);
 
         dbWorker.editPeople(person);
+        stage.close();
 
 
 //        person.editPeople(person.getId(), person);
 
     }
+
+
 
     public void changeImg() {
         // Создание объекта FileChooser.

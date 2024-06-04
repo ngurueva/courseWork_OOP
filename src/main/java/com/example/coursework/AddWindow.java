@@ -1,24 +1,17 @@
 package com.example.coursework;
 
-import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.example.coursework.*;
-
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
+import java.util.EventObject;
 
 
 public class AddWindow{
@@ -79,25 +72,18 @@ public class AddWindow{
         String infoText = textFieldInfo.getText();
 
         person = new People(hashCode(), surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, ("file:" + filePath), infoText);
-
+        System.out.println("ADD - " + person.getId() + " - " + person.getSurname());
         dbWorker.addPeople(person);
-//        person.addPeople(person);
-
+        stage.close();
     }
     public void changeImg() {
-        // Создание объекта FileChooser.
         FileChooser fileChooser = new FileChooser();
-        // Установка фильтра файлов для отображения только изображений.
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Изображения", "*.jpg", "*.png", "*.gif");
         fileChooser.getExtensionFilters().add(imageFilter);
-        // Открытие диалогового окна выбора файла.
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            // Получение пути к выбранному файлу.
             filePath = file.getAbsolutePath();
-            // Загрузка изображения по указанному пути.
             image = new Image("file:" + filePath);
-            // Установка загруженного изображения в качестве нового изображения для картинки.
             imgPerson.setImage(image);
         }
     }

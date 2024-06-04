@@ -43,6 +43,7 @@ public class HelloController implements Initializable {
 
     //    ObservableList<People> tree = new ObservableList<People>(getTree);
     public TableView<People> tableView;
+    public TableColumn<People, Integer> colId;
     public TableColumn<People, String> colSurname;
     public TableColumn<People, String> colName;
     public TableColumn<People, String> colPatronymic;
@@ -65,6 +66,7 @@ public class HelloController implements Initializable {
             editWindow.openEditWindow(selectedPerson);
             refreshTable();
         }
+
     }
 
     public void deletePerson() throws SQLException {
@@ -83,6 +85,7 @@ public class HelloController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Создать столбцы таблицы
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPatronymic.setCellValueFactory(new PropertyValueFactory<>("patronymic"));
