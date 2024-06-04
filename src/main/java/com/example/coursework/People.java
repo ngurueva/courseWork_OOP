@@ -166,15 +166,4 @@ public class People {
     }
 
 
-    public void addPeople(People person) {
-        this.list.add(person);
-    }
-    public void editPeople(int id, People person) {
-        this.list.set(id, person);
-    }
-
-//    public int setNewId() {
-//        newId++;
-//        return newId;
-//    }
 }

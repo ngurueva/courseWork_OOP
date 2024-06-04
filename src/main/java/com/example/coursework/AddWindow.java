@@ -1,7 +1,9 @@
 package com.example.coursework;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -12,10 +14,12 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.example.coursework.HelloController.newId;
+import static com.example.coursework.HelloController.*;
 
 
-public class AddWindow {
+public class AddWindow{
+    public SplitPane addWindowRoot;
+
     DBWorker dbWorker = new DBWorker();
     public ImageView imgPerson;
     public TextField textFieldSurname;
@@ -39,7 +43,6 @@ public class AddWindow {
 
 
     public void openAddWindow() throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image("file:C:/Users/Наталья/Downloads/free-icon-tree-4319592.png"));
@@ -51,8 +54,12 @@ public class AddWindow {
         stage.setResizable(false);
         stage.setFullScreen(false);
         stage.setScene(scene);
-        stage.show();
 
+        stage.setOnCloseRequest(event -> {
+            windowOpen = false;
+        });
+
+        stage.show();
     }
 
     public void add() throws SQLException {
@@ -75,19 +82,13 @@ public class AddWindow {
         String spouse = (String) comboBoxSpouse.getValue();
         ObservableList<String> selectedValues = listViewChildern.getSelectionModel().getSelectedItems();
         String infoText = textFieldInfo.getText();
-
-        System.out.println("GEGEGEGEGEG" + newId);
         newId++;
         person = new People(newId, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, ("file:" + filePath), infoText);
-
-        System.out.println("ADD - " + person.getId() + " - " + person.getSurname());
         dbWorker.addPeople(person);
+        observablePeopleList.add(person);
+        windowOpen = false;
         stage.close();
     }
-    public boolean isShowing() {
-        return stage != null && stage.isShowing();
-    }
-
 
     public void changeImg() {
         FileChooser fileChooser = new FileChooser();
@@ -100,9 +101,4 @@ public class AddWindow {
             imgPerson.setImage(image);
         }
     }
-
-    public void cancel() {
-        stage.close();
-    }
-
 }

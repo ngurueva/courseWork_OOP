@@ -1,25 +1,21 @@
 package com.example.coursework;
 
-import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import com.example.coursework.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import static com.example.coursework.HelloController.*;
 
 public class EditWindow {
-    People people;
     DBWorker dbWorker=new DBWorker();
     public ImageView imgPerson;
     public TextField textFieldSurname = new TextField();
@@ -43,17 +39,10 @@ public class EditWindow {
 
 public void openEditWindow(People people) throws IOException {
     idPerson = people.getId();
-
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-window.fxml"));
     Scene scene = new Scene(fxmlLoader.load());
-
-    // Получаем контроллер сразу после загрузки FXML
     EditWindow controller = fxmlLoader.getController();
-
-
     controller.imgPerson.setImage(new Image(people.getPhoto()));
-    // Теперь можно устанавливать значения в поля контроллера
-//    controller.imgPerson.setImage(people.getPhoto());
     controller.textFieldSurname.setText(people.getSurname());
     controller.textFieldName.setText(people.getName());
     controller.textFieldPatronymic.setText(people.getPatronymic());
@@ -69,8 +58,6 @@ public void openEditWindow(People people) throws IOException {
         controller.textFieldDateOfDeath.setValue(dateOfDeath);
     }
     controller.menuButtonGender.setText(people.getGender());
-
-
     stage.getIcons().add(new Image("file:C:/Users/Наталья/Downloads/free-icon-tree-4319592.png"));
     stage.setTitle("Редактирование");
     stage.setMinWidth(320);
@@ -81,6 +68,9 @@ public void openEditWindow(People people) throws IOException {
     stage.setFullScreen(false);
     stage.setScene(scene);
 
+    stage.setOnCloseRequest(event -> {
+        windowOpen = false;
+    });
     stage.show();
 }
 
@@ -108,29 +98,19 @@ public void openEditWindow(People people) throws IOException {
         person = new People(id, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, ("file:" + filePath), infoText);
 
         dbWorker.editPeople(person);
+        observablePeopleList.set(person.getId(), person);
+
+
         stage.close();
-
-
-//        person.editPeople(person.getId(), person);
-
     }
-
-
-
     public void changeImg() {
-        // Создание объекта FileChooser.
         FileChooser fileChooser = new FileChooser();
-        // Установка фильтра файлов для отображения только изображений.
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Изображения", "*.jpg", "*.png", "*.gif");
         fileChooser.getExtensionFilters().add(imageFilter);
-        // Открытие диалогового окна выбора файла.
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-            // Получение пути к выбранному файлу.
             filePath = file.getAbsolutePath();
-            // Загрузка изображения по указанному пути.
             image = new Image("file:" + filePath);
-            // Установка загруженного изображения в качестве нового изображения для картинки.
             imgPerson.setImage(image);
         }
     }

@@ -90,8 +90,7 @@
                             <GridPane.margin>
                                 <Insets left="20.0" right="20.0" />
                             </GridPane.margin></TextArea>
-                        <Button fx:id="BtnCancel" mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Отмена" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
-                        <Button fx:id="BtnSave" mnemonicParsing="false" onAction="#edit" prefHeight="100.0" prefWidth="120.0" text="Сохранить" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
+                        <Button fx:id="BtnSave" mnemonicParsing="false" onAction="#edit" prefHeight="28.0" prefWidth="258.0" text="Сохранить" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
                         <MenuButton fx:id="menuButtonGender" mnemonicParsing="false" prefWidth="100.0" text="Пол" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="жен" />
