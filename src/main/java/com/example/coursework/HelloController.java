@@ -70,7 +70,6 @@ public class HelloController implements Initializable {
     public void deletePerson() throws SQLException {
         People selectedPerson = tableView.getSelectionModel().getSelectedItem();
         dbWorker.deletePeople(selectedPerson);
-
         refreshTable();
     }
 
@@ -114,9 +113,27 @@ public class HelloController implements Initializable {
                 PersonCard personCard = new PersonCard();
                 personCard.openCard(selectedPerson);
             }
-
         }
+        deleteBtn.setDisable(false);
+        editBtn.setDisable(false);
+        ImgDeleteBtn.setDisable(false);
+        ImgEditBtn.setDisable(false);
     }
+
+    private void refreshTable() {
+        try {
+            peopleList = dbWorker.getAllPeople();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        // Преобразовать список людей в ObservableList
+        observablePeopleList = FXCollections.observableArrayList(peopleList);
+        // Установить ObservableList в таблицу
+        tableView.setItems(observablePeopleList);
+        // Обновить таблицу
+        tableView.refresh();
+    }
+
 
 
 

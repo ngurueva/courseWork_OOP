@@ -23,7 +23,7 @@
     <items>
         <BorderPane prefHeight="200.0" prefWidth="200.0">
             <center>
-                <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                <ImageView fx:id="imgPerson" fitHeight="150.0" fitWidth="150.0" onMouseClicked="#changeImg" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@noImg.png" />
                </image></ImageView>
@@ -91,7 +91,7 @@
                                 <Insets left="20.0" right="20.0" />
                             </GridPane.margin></TextArea>
                         <Button fx:id="BtnCancel" mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Отмена" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
-                        <Button fx:id="BtnSave" mnemonicParsing="false" prefHeight="100.0" prefWidth="120.0" text="Сохранить" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
+                        <Button fx:id="BtnSave" mnemonicParsing="false" onAction="#edit" prefHeight="100.0" prefWidth="120.0" text="Сохранить" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
                         <MenuButton fx:id="menuButtonGender" mnemonicParsing="false" prefWidth="100.0" text="Пол" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="жен" />

@@ -4,11 +4,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 public class PersonCard     {
 
     Stage stage = new Stage();
+    public ImageView imgPerson;
     public Label labelFIO = new Label();
     public Label labelNickname = new Label();
     public Label labelYears = new Label();
@@ -30,6 +34,11 @@ public class PersonCard     {
         stage.setFullScreen(false);
         stage.setScene(scene);
 
+
+        System.out.println(people.getPhoto());
+        controller.imgPerson.setImage(new Image(people.getPhoto()));
+
+// Установка изображения в ImageView
         controller.labelFIO.setText(people.getSurname() + " " + people.getName() + " " + people.getPatronymic());
         controller.labelNickname.setText(people.getNickname());
         controller.labelGender.setText(people.getGender());

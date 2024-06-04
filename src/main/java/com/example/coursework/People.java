@@ -90,8 +90,11 @@ public class People {
         return dateOfDeath;
     }
 
-    public Image getPhoto() {
-        return photo;
+//    public Image getPhoto() {
+//        return photo;
+//    }
+    public String getPhoto() {
+        return phot;
     }
 
     public String getInfo() {
@@ -130,8 +133,11 @@ public class People {
         this.dateOfDeath = dateOfDeath;
     }
 
-    public void setPhoto(Image photo) {
-        this.photo = photo;
+//    public void setPhoto(Image photo) {
+//        this.photo = photo;
+//    }
+    public void setPhoto(String photo) {
+        this.phot = photo;
     }
 
     public void setInfo(String info) {
@@ -159,8 +165,11 @@ public class People {
     }
 
 
-    public void addPeople(People person) throws SQLException {
+    public void addPeople(People person) {
         this.list.add(person);
+    }
+    public void editPeople(int id, People person) {
+        this.list.set(id, person);
     }
 
 }

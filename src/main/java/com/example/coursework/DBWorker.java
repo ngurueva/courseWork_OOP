@@ -50,6 +50,20 @@ public class DBWorker implements Repository{
             e.printStackTrace();
         }
     }
+    public void editPeople(People people) throws SQLException {
+        connection = DriverManager.getConnection(jdbUrl);
+        System.out.println("БД подключена!");
+
+        Statement statement = connection.createStatement();
+            statement.executeUpdate("update people set surname='"+people.getSurname()+ "', name = '" + people.getName() + "', patronymic = '" + people.getPatronymic() + "', nickname = '" + people.getNickname() + "', dataOfBirth = '" + people.getDataOfBirth() + "', dateOfDeath = '" + people.getDateOfDeath() + "', gender = '" + people.getGender() + "', photo = '" + people.getPhoto() + "', info = '" + people.getInfo() + "' where id="+people.getId()+" ;");
+            System.out.println("данные о человеке изменены");
+
+
+        statement.close();
+
+        connection.close();
+        System.out.println("Соединения закрыты");
+    }
 //    public ResultSet getAllPeople() {
 //        String getPeople="SELECT * FROM people";
 //        PreparedStatement prSt = null;

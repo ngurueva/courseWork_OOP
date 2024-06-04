@@ -5,21 +5,34 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="460.0" maxWidth="600.0" minHeight="460.0" minWidth="600.0" prefHeight="460.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.PersonCard">
+<AnchorPane maxHeight="460.0" maxWidth="600.0" minHeight="460.0" minWidth="600.0" prefHeight="460.0" prefWidth="600.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.PersonCard">
    <children>
       <ImageView fx:id="imgPerson" fitHeight="200.0" fitWidth="200.0" layoutX="56.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@noImg.png" />
          </image></ImageView>
-      <Label fx:id="labelFIO" alignment="CENTER" layoutX="256.0" layoutY="31.0" prefHeight="30.0" prefWidth="330.0" text="ФИО" textAlignment="CENTER" />
-      <Label fx:id="labelNickname" alignment="CENTER" layoutX="256.0" layoutY="61.0" prefHeight="30.0" prefWidth="330.0" text="Прозвище" textAlignment="CENTER" />
-      <Label fx:id="labelYears" alignment="CENTER" layoutX="256.0" layoutY="91.0" prefHeight="30.0" prefWidth="330.0" text="Годы жизни" textAlignment="CENTER" />
-      <Label fx:id="labelGender" alignment="CENTER" layoutX="256.0" layoutY="121.0" prefHeight="30.0" prefWidth="330.0" text="Пол" textAlignment="CENTER" />
-      <Label fx:id="labelInfo" alignment="TOP_CENTER" layoutX="14.0" layoutY="230.0" prefHeight="155.0" prefWidth="375.0" text="Информация" textAlignment="CENTER" />
-      <Button layoutX="402.0" layoutY="345.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Закрыть" />
-      <Button layoutX="402.0" layoutY="270.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Изменить" />
-      <Label alignment="CENTER" layoutX="256.0" layoutY="151.0" prefHeight="60.0" prefWidth="330.0" text="Семья" />
-      <Button layoutX="402.0" layoutY="308.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Удалить" />
+      <Label fx:id="labelFIO" alignment="CENTER" layoutX="256.0" layoutY="31.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" text="ФИО" textAlignment="CENTER">
+         <font>
+            <Font name="MS UI Gothic" size="17.0" />
+         </font></Label>
+      <Label fx:id="labelNickname" alignment="CENTER" layoutX="256.0" layoutY="61.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" text="Прозвище" textAlignment="CENTER" />
+      <Label fx:id="labelYears" alignment="CENTER" layoutX="256.0" layoutY="91.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" text="Годы жизни" textAlignment="CENTER" />
+      <Label fx:id="labelGender" alignment="CENTER" layoutX="256.0" layoutY="121.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" text="Пол" textAlignment="CENTER" />
+      <Label fx:id="labelInfo" alignment="TOP_CENTER" layoutX="14.0" layoutY="230.0" prefHeight="155.0" prefWidth="375.0" style="-fx-text-fill: #2D2920;" text="Информация" textAlignment="CENTER" />
+      <Button layoutX="402.0" layoutY="345.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #6A6F4C; -fx-text-fill: FEFAE0;" text="Закрыть">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="402.0" layoutY="270.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #6A6F4C; -fx-text-fill: FEFAE0;" text="Изменить">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label alignment="CENTER" layoutX="256.0" layoutY="151.0" prefHeight="60.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" text="Семья" />
+      <Button layoutX="402.0" layoutY="308.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #6A6F4C; -fx-text-fill: FEFAE0;" text="Удалить">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>
