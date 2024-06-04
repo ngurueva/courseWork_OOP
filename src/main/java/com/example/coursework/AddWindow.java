@@ -11,11 +11,12 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.EventObject;
+
+import static com.example.coursework.HelloController.newId;
 
 
-public class AddWindow{
-    DBWorker dbWorker=new DBWorker();
+public class AddWindow {
+    DBWorker dbWorker = new DBWorker();
     public ImageView imgPerson;
     public TextField textFieldSurname;
     public TextField textFieldName;
@@ -34,8 +35,11 @@ public class AddWindow{
     public People person;
     private String filePath;
 
-    Stage stage = new Stage();
+    public Stage stage = new Stage();
+
+
     public void openAddWindow() throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image("file:C:/Users/Наталья/Downloads/free-icon-tree-4319592.png"));
@@ -48,9 +52,10 @@ public class AddWindow{
         stage.setFullScreen(false);
         stage.setScene(scene);
         stage.show();
-    }
-    public void add() throws SQLException {
 
+    }
+
+    public void add() throws SQLException {
         imgPerson.setImage(image);
         String surnameText = textFieldSurname.getText();
         String nameText = textFieldName.getText();
@@ -71,11 +76,19 @@ public class AddWindow{
         ObservableList<String> selectedValues = listViewChildern.getSelectionModel().getSelectedItems();
         String infoText = textFieldInfo.getText();
 
-        person = new People(hashCode(), surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, ("file:" + filePath), infoText);
+        System.out.println("GEGEGEGEGEG" + newId);
+        newId++;
+        person = new People(newId, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, ("file:" + filePath), infoText);
+
         System.out.println("ADD - " + person.getId() + " - " + person.getSurname());
         dbWorker.addPeople(person);
         stage.close();
     }
+    public boolean isShowing() {
+        return stage != null && stage.isShowing();
+    }
+
+
     public void changeImg() {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Изображения", "*.jpg", "*.png", "*.gif");
@@ -87,6 +100,7 @@ public class AddWindow{
             imgPerson.setImage(image);
         }
     }
+
     public void cancel() {
         stage.close();
     }

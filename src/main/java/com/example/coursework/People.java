@@ -24,6 +24,7 @@ public class People {
     protected int age;
 
 
+
     public People(int id, String surname, String name, String patronymic, String nickname, String dataOfBirth, String dateOfDeath, String gender,Image photo, String info) {
         this.id = id;
         this.surname = surname;
@@ -172,4 +173,8 @@ public class People {
         this.list.set(id, person);
     }
 
+//    public int setNewId() {
+//        newId++;
+//        return newId;
+//    }
 }
