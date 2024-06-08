@@ -1,6 +1,8 @@
 package com.example.coursework;
 
-import javafx.application.Platform;
+import com.example.coursework.data.Kinship;
+import com.example.coursework.db.DBWorker;
+import com.example.coursework.data.People;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -21,7 +23,11 @@ public class HelloController implements Initializable {
     public static boolean windowOpen = false;
 
     public static ObservableList<People> observablePeopleList;
+    public static ObservableList<Kinship> kinshipObservableList;
     ArrayList<People> peopleList;
+    ArrayList<Kinship> kinship;
+
+
     public Button addBtn;
     public Button editBtn;
     public Button deleteBtn;
@@ -43,6 +49,8 @@ public class HelloController implements Initializable {
     public TableColumn<People, String> colGender;
     DBWorker dbWorker = new DBWorker();
     public static int newId = -1;
+    public static int idRelative = 0;
+
 
     public void addPerson() throws IOException {
         if (!windowOpen) {
@@ -90,6 +98,7 @@ public class HelloController implements Initializable {
         dbWorker.initDB();
         try {
             peopleList = dbWorker.getAllPeople();
+            kinship = dbWorker.getAllKinship();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -101,6 +110,7 @@ public class HelloController implements Initializable {
         }
         observablePeopleList = FXCollections.observableArrayList(peopleList);
         tableView.setItems(observablePeopleList);
+        kinshipObservableList = FXCollections.observableArrayList(kinship);
     }
 
     public void openCard(MouseEvent mouseEvent) throws IOException {

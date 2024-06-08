@@ -1,14 +1,11 @@
-package com.example.coursework;
+package com.example.coursework.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TreeItem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.net.URL;
-import com.example.coursework.*;
+
 import java.util.ArrayList;
 
 public class Tree {

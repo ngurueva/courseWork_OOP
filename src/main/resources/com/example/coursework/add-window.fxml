@@ -6,8 +6,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -91,12 +89,6 @@
                         <Insets left="20.0" right="20.0" />
                      </GridPane.margin></TextArea>
                   <Button fx:id="BtnAdd" mnemonicParsing="false" onAction="#add" prefHeight="28.0" prefWidth="259.0" text="Добавить" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER" />
-                  <MenuButton fx:id="menuButtonGender" mnemonicParsing="false" prefWidth="100.0" text="Пол" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="жен" />
-                      <MenuItem mnemonicParsing="false" text="муж" />
-                    </items>
-                  </MenuButton>
                   <Label alignment="CENTER" text="Мать" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                      <padding>
                         <Insets right="20.0" />
@@ -121,6 +113,12 @@
                   <ComboBox fx:id="comboBoxDad" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <ComboBox fx:id="comboBoxSpouse" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <ListView fx:id="listViewChildern" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <ComboBox fx:id="genderComboBox" prefHeight="25.0" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <Label alignment="CENTER" text="Пол" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
                </children>
             </GridPane>
          </children></AnchorPane>

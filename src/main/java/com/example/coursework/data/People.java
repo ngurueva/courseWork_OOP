@@ -1,9 +1,6 @@
-package com.example.coursework;
-
-import javafx.collections.ObservableList;
+package com.example.coursework.data;
 
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class People {

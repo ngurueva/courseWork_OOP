@@ -15,4 +15,8 @@ module com.example.coursework {
 
     opens com.example.coursework to javafx.fxml;
     exports com.example.coursework;
+    exports com.example.coursework.db;
+    opens com.example.coursework.db to javafx.fxml;
+    exports com.example.coursework.data;
+    opens com.example.coursework.data to javafx.fxml;
 }

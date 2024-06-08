@@ -1,18 +1,18 @@
 package com.example.coursework;
 
+import com.example.coursework.data.Kinship;
+import com.example.coursework.data.People;
+import com.example.coursework.db.DBWorker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
-public class PersonCard     {
+public class PersonCard{
 
     Stage stage = new Stage();
     DBWorker dbWorker;
@@ -34,15 +34,10 @@ public class PersonCard     {
         stage.setTitle("Карта");
         stage.setMinWidth(600);
         stage.setMinHeight(420);
-        stage.setMaxWidth(600);
-        stage.setMaxHeight(420);
         stage.setResizable(false);
         stage.setFullScreen(false);
         stage.setScene(scene);
-
-
-        System.out.println(people.getPhoto());
-        controller.imgPerson.setImage(new Image(people.getPhoto()));
+        controller.imgPerson.setImage(new Image("file:" + people.getPhoto()));
 
         controller.labelFIO.setText(people.getSurname() + " " + people.getName() + " " + people.getPatronymic());
         controller.labelNickname.setText(people.getNickname());
