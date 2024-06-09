@@ -1,6 +1,5 @@
-package com.example.coursework;
+package com.example.coursework.view;
 
-import com.example.coursework.data.Kinship;
 import com.example.coursework.data.People;
 import com.example.coursework.db.DBWorker;
 import javafx.fxml.FXMLLoader;

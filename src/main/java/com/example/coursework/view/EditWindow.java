@@ -1,8 +1,7 @@
-package com.example.coursework;
+package com.example.coursework.view;
 
 import com.example.coursework.db.DBWorker;
 import com.example.coursework.data.People;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;

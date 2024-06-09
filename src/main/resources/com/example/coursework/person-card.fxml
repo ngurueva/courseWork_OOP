@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="460.0" maxWidth="600.0" minHeight="460.0" minWidth="600.0" prefHeight="460.0" prefWidth="600.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.PersonCard">
+<AnchorPane maxHeight="460.0" maxWidth="600.0" minHeight="460.0" minWidth="600.0" prefHeight="460.0" prefWidth="600.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.view.PersonCard">
    <children>
       <ImageView fx:id="imgPerson" fitHeight="234.0" fitWidth="246.0" layoutX="22.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
          <image>
