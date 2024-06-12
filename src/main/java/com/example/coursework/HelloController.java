@@ -1,11 +1,8 @@
 package com.example.coursework;
 
-import com.example.coursework.data.Kinship;
 import com.example.coursework.db.DBWorker;
-import com.example.coursework.data.People;
-import com.example.coursework.view.AddWindow;
-import com.example.coursework.view.EditWindow;
-import com.example.coursework.view.PersonCard;
+import com.example.coursework.data.*;
+import com.example.coursework.view.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -20,22 +17,12 @@ import java.util.ResourceBundle;
 
 
 public class HelloController implements Initializable {
-    public HelloController() {
-    }
-
-    public static boolean windowOpen = false;
-
-    public static ObservableList<People> observablePeopleList;
-    public static ObservableList<Kinship> kinshipObservableList;
-    ArrayList<People> peopleList;
-    ArrayList<Kinship> kinship;
-
-
     public Button addBtn;
     public Button editBtn;
     public Button deleteBtn;
     public Button openBtn;
     public Button saveBtn;
+    public Button closeBtn;
     public Button ImgAddBtn;
     public Button ImgEditBtn;
     public Button ImgDeleteBtn;
@@ -50,45 +37,14 @@ public class HelloController implements Initializable {
     public TableColumn<People, String> colNickname;
     public TableColumn<People, String> colAge;
     public TableColumn<People, String> colGender;
-    DBWorker dbWorker = new DBWorker();
-    public static int newId = -1;
+    private DBWorker dbWorker = new DBWorker();
+    public static int newId = 0;
     public static int idRelative = 0;
-
-
-    public void addPerson() throws IOException {
-        if (!windowOpen) {
-            AddWindow addWindow = new AddWindow();
-            addWindow.openAddWindow();
-            windowOpen = true;
-        }
-    }
-
-    public void editPerson() throws IOException, SQLException {
-        if (!windowOpen) {
-            People selectedPerson = tableView.getSelectionModel().getSelectedItem();
-            if (selectedPerson != null) {
-                EditWindow editWindow = new EditWindow();
-                editWindow.openEditWindow(selectedPerson);
-                windowOpen = true;
-            }
-        }
-    }
-
-
-    public void deletePerson() throws SQLException {
-        People selectedPerson = tableView.getSelectionModel().getSelectedItem();
-        dbWorker.deletePeople(selectedPerson);
-        observablePeopleList.remove(observablePeopleList.indexOf(selectedPerson));
-    }
-
-    public void openTree() {
-    }
-
-    public void closeTree() {
-    }
-
-    public void saveTree() {
-    }
+    public static boolean windowOpen = false;
+    private ArrayList<People> peopleList;
+    private ArrayList<Kinship> kinship;
+    public static ObservableList<People> observablePeopleList;
+    public static ObservableList<Kinship> kinshipObservableList;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -111,13 +67,53 @@ public class HelloController implements Initializable {
                 newId++;
             }
         }
+        for (int i = 0; i < kinship.size(); i++) {
+            if (idRelative < kinship.get(i).getId()) {
+                idRelative = kinship.get(i).getId();
+                idRelative++;
+            }
+        }
         observablePeopleList = FXCollections.observableArrayList(peopleList);
         tableView.setItems(observablePeopleList);
         kinshipObservableList = FXCollections.observableArrayList(kinship);
     }
+    public void addPerson() throws IOException {
+        if (!windowOpen) {
+            AddWindow addWindow = new AddWindow();
+            addWindow.openAddWindow();
+            windowOpen = true;
+        }
+    }
 
-    public void openCard(MouseEvent mouseEvent) throws IOException {
-        if (mouseEvent.getClickCount() == 2) { // Проверяем, был ли двойной клик
+    public void editPerson() throws IOException, SQLException {
+        if (!windowOpen) {
+            windowOpen = true;
+            People selectedPerson = tableView.getSelectionModel().getSelectedItem();
+            if (selectedPerson != null) {
+                EditWindow editWindow = new EditWindow();
+                editWindow.openEditWindow(selectedPerson);
+
+            }
+        }
+    }
+
+    public void deletePerson() throws SQLException {
+        People selectedPerson = tableView.getSelectionModel().getSelectedItem();
+        dbWorker.deletePeople(selectedPerson);
+        dbWorker.deleteRelative(selectedPerson);
+        observablePeopleList.remove(observablePeopleList.indexOf(selectedPerson));
+    }
+
+    public void openTree() {
+    }
+
+    public void closeTree() {
+    }
+
+    public void saveTree() {
+    }
+    public void clickingOnTable(MouseEvent mouseEvent) throws IOException, SQLException {
+        if (mouseEvent.getClickCount() == 2) {
             People selectedPerson = tableView.getSelectionModel().getSelectedItem();
             if (selectedPerson != null) {
                 PersonCard personCard = new PersonCard();

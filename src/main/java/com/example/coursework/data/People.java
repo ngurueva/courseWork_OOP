@@ -1,11 +1,8 @@
 package com.example.coursework.data;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class People {
-    private ArrayList<People> list = new ArrayList<>();
-    protected Repository repository;
     protected int id;
     protected String surname;
     protected String name;
@@ -14,26 +11,12 @@ public class People {
     protected String dataOfBirth;
     protected String dateOfDeath;
     protected String gender;
-    protected Image photo;
-    protected String phot;
+    protected String photo;
     protected String info;
     protected String fullName;
     protected int age;
 
 
-
-    public People(int id, String surname, String name, String patronymic, String nickname, String dataOfBirth, String dateOfDeath, String gender,Image photo, String info) {
-        this.id = id;
-        this.surname = surname;
-        this.name = name;
-        this.patronymic = patronymic;
-        this.nickname = nickname;
-        this.dataOfBirth = dataOfBirth;
-        this.dateOfDeath = dateOfDeath;
-        this.gender = gender;
-        this.photo = photo;
-        this.info = info;
-    }
     public People(String fullName, int age) {
 
         this.fullName = fullName;
@@ -50,7 +33,7 @@ public class People {
         this.dataOfBirth = dataOfBirth;
         this.dateOfDeath = dateOfDeath;
         this.gender = gender;
-        this.phot = photo;
+        this.photo = photo;
         this.info = info;
     }
 
@@ -88,11 +71,8 @@ public class People {
         return dateOfDeath;
     }
 
-//    public Image getPhoto() {
-//        return photo;
-//    }
     public String getPhoto() {
-        return phot;
+        return photo;
     }
 
     public String getInfo() {
@@ -131,36 +111,11 @@ public class People {
         this.dateOfDeath = dateOfDeath;
     }
 
-//    public void setPhoto(Image photo) {
-//        this.photo = photo;
-//    }
     public void setPhoto(String photo) {
-        this.phot = photo;
+        this.photo = photo;
     }
 
     public void setInfo(String info) {
         this.info = info;
     }
-
-
-
-
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-
 }

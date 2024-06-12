@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.HelloController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.HelloController">
    <top>
       <ToolBar minWidth="836.0">
         <items>
@@ -13,7 +21,7 @@
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@plus.png" />
+                        <Image url="@../icons/plus.png" />
                      </image></ImageView>
                </graphic>
             </Button>
@@ -21,7 +29,7 @@
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@minus.png" />
+                        <Image url="@../icons/minus.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -29,7 +37,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@update.png" />
+                        <Image url="@../icons/update.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -37,7 +45,7 @@
                <graphic>
                   <ImageView fitHeight="52.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@save.png" />
+                        <Image url="@../icons/save.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -45,7 +53,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@open.png" />
+                        <Image url="@../icons/open.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -53,7 +61,7 @@
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@close.png" />
+                        <Image url="@../icons/close.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -72,7 +80,7 @@
                    <content>
                        <AnchorPane disable="true" focusTraversable="true" maxHeight="Infinity" maxWidth="Infinity" minHeight="0.0" minWidth="0.0">
                            <children>
-                               <TableView fx:id="tableView" onMouseClicked="#openCard" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                               <TableView fx:id="tableView" onMouseClicked="#clickingOnTable" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                    <columns>
                               <TableColumn fx:id="colId" prefWidth="75.0" text="id" />
                                        <TableColumn fx:id="colSurname" text="Фамилия" />
@@ -102,7 +110,7 @@
             <Button fx:id="deleteBtn" cache="true" disable="true" mnemonicParsing="false" onAction="#deletePerson" prefWidth="100.0" text="Удалить" textAlignment="CENTER" />
             <Button fx:id="openBtn" mnemonicParsing="false" onAction="#openTree" prefWidth="100.0" text="Открыть" textAlignment="CENTER" />
             <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveTree" prefHeight="25.0" prefWidth="100.0" text="Сохранить" textAlignment="CENTER" />
-            <Button fx:id="claseBtn" mnemonicParsing="false" onAction="#closeTree" prefHeight="25.0" prefWidth="100.0" text="Закрыть" textAlignment="CENTER" />
+            <Button fx:id="closeBtn" mnemonicParsing="false" onAction="#closeTree" prefHeight="25.0" prefWidth="100.0" text="Закрыть" textAlignment="CENTER" />
          </children>
       </VBox>
    </right>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="460.0" maxWidth="600.0" minHeight="460.0" minWidth="600.0" prefHeight="460.0" prefWidth="600.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.view.PersonCard">
+   <children>
+      <ImageView fx:id="imgPerson" fitHeight="234.0" fitWidth="246.0" layoutX="22.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/noImg.png" />
+         </image></ImageView>
+      <Label fx:id="labelFIO" alignment="CENTER" layoutX="256.0" layoutY="46.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" textAlignment="CENTER">
+         <font>
+            <Font name="Yu Gothic UI Semibold" size="17.0" />
+         </font></Label>
+      <Label fx:id="labelNickname" alignment="CENTER" layoutX="256.0" layoutY="16.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" textAlignment="CENTER" />
+      <Label fx:id="labelYears" alignment="CENTER" layoutX="256.0" layoutY="91.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" textAlignment="CENTER" />
+      <Label fx:id="labelGender" alignment="CENTER" layoutX="256.0" layoutY="121.0" prefHeight="30.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" textAlignment="CENTER" />
+      <Label fx:id="labelInfo" alignment="TOP_CENTER" layoutX="14.0" layoutY="268.0" prefHeight="117.0" prefWidth="577.0" style="-fx-text-fill: #2D2920;" textAlignment="CENTER" />
+      <Label fx:id="familyInfo" alignment="CENTER" layoutX="256.0" layoutY="148.0" prefHeight="105.0" prefWidth="330.0" style="-fx-text-fill: #2D2920;" />
+   </children>
+</AnchorPane>

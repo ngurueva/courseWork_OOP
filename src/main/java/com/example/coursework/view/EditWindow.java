@@ -1,7 +1,12 @@
 package com.example.coursework.view;
 
+import com.example.coursework.data.Kinship;
 import com.example.coursework.db.DBWorker;
 import com.example.coursework.data.People;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -13,15 +18,17 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
 import java.util.ResourceBundle;
-
 import static com.example.coursework.HelloController.*;
 
 public class EditWindow implements Initializable {
-    DBWorker dbWorker=new DBWorker();
+    Stage stage = new Stage();
     public ImageView imgPerson;
     public TextField textFieldSurname = new TextField();
     public TextField textFieldName = new TextField();
@@ -29,29 +36,22 @@ public class EditWindow implements Initializable {
     public TextField textFieldNickname = new TextField();
     public DatePicker textFieldDateOfBirth = new DatePicker();
     public DatePicker textFieldDateOfDeath = new DatePicker();
-    public ComboBox comboBoxMom = new ComboBox();
-    public ComboBox comboBoxDad = new ComboBox<>();
-    public ComboBox comboBoxSpouse = new ComboBox<>();
-    public ListView listViewChildern = new ListView();
     public TextArea textFieldInfo = new TextArea();
     public Button BtnSave = new Button();
-    Stage stage = new Stage();
-    public Image image;
     public People person;
     private String filePath;
     private static int idPerson;
     private String dateOfBirthText;
     private String dateOfDeathText;
-    public ComboBox<String> genderComboBox = new ComboBox<>();
     private boolean flag = true;
+    private static String gender;
+    private DBWorker dbWorker = new DBWorker();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        genderComboBox.getItems().addAll("муж", "жен");
-    }
 
+    }
     public void openEditWindow(People people) throws IOException {
         idPerson = people.getId();
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         EditWindow controller = fxmlLoader.getController();
@@ -61,6 +61,9 @@ public class EditWindow implements Initializable {
         controller.textFieldPatronymic.setText(people.getPatronymic());
         controller.textFieldNickname.setText(people.getNickname());
         controller.textFieldInfo.setText(people.getInfo());
+        gender = people.getGender();
+
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (people.getDataOfBirth() != null && !people.getDataOfBirth().isEmpty()) {
             LocalDate dateOfBirth = LocalDate.parse(people.getDataOfBirth(), formatter);
@@ -71,7 +74,6 @@ public class EditWindow implements Initializable {
             controller.textFieldDateOfDeath.setValue(dateOfDeath);
         }
 
-        controller.genderComboBox.setValue(people.getGender());
         stage.getIcons().add(new Image("file:C:/Users/Наталья/Downloads/free-icon-tree-4319592.png"));
         stage.setTitle("Редактирование");
         stage.setMinWidth(320);
@@ -85,8 +87,12 @@ public class EditWindow implements Initializable {
         stage.setOnCloseRequest(event -> {
             windowOpen = false;
         });
-        stage.setAlwaysOnTop(true);
         stage.show();
+
+        BtnSave.setOnMouseClicked(event -> {
+            stage.close();
+        });
+
     }
     public void edit() throws SQLException {
         int id = idPerson;
@@ -101,14 +107,12 @@ public class EditWindow implements Initializable {
         if (textFieldDateOfDeath.getValue() != null) {
             dateOfDeathText = textFieldDateOfDeath.getValue().toString();
         }
-        String gender = genderComboBox.getValue();
         String infoText = textFieldInfo.getText();
 
         person = new People(id, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, filePath, infoText);
 
         dbWorker.editPeople(person);
-        observablePeopleList.setAll(person);
-        stage.close();
+        observablePeopleList.setAll(FXCollections.observableArrayList(dbWorker.getAllPeople()));
     }
 
     public void changeImg() {
@@ -120,7 +124,7 @@ public class EditWindow implements Initializable {
             File file = fileChooser.showOpenDialog(null);
             if (file != null) {
                 filePath = file.getAbsolutePath();
-                image = new Image("file:" + filePath);
+                Image image = new Image("file:" + filePath);
                 imgPerson.setImage(image);
             }
             flag = true;

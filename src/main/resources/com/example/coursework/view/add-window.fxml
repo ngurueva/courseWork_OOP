@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -21,9 +20,9 @@
   <items>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <center>
-            <ImageView fx:id="imgPerson" fitHeight="150.0" fitWidth="150.0" onMouseClicked="#changeImg" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fx:id="imgPerson" fitHeight="150.0" fitWidth="150.0" onMouseClicked="#addImg" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@noImg.png" />
+                  <Image url="@../icons/noImg.png" />
                </image></ImageView>
          </center>
       </BorderPane>
@@ -99,7 +98,7 @@
                         <Insets right="20.0" />
                      </padding>
                   </Label>
-                  <Label alignment="CENTER" text="Супруг" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+                  <Label alignment="CENTER" text="Супруг(а)" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                      <padding>
                         <Insets right="20.0" />
                      </padding>
@@ -112,13 +111,13 @@
                   <ComboBox fx:id="comboBoxMom" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <ComboBox fx:id="comboBoxDad" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <ComboBox fx:id="comboBoxSpouse" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <ListView fx:id="listViewChildern" maxWidth="120.0" prefHeight="25.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <ComboBox fx:id="genderComboBox" prefHeight="25.0" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <Label alignment="CENTER" text="Пол" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                      <padding>
                         <Insets right="20.0" />
                      </padding>
                   </Label>
+                  <ComboBox editable="true" prefHeight="25.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                </children>
             </GridPane>
          </children></AnchorPane>
