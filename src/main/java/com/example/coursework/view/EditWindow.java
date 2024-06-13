@@ -1,12 +1,10 @@
 package com.example.coursework.view;
 
-import com.example.coursework.data.Kinship;
+import com.example.coursework.data.Repository;
 import com.example.coursework.db.DBWorker;
 import com.example.coursework.data.People;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -18,34 +16,43 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import static com.example.coursework.HelloController.*;
+import static com.example.coursework.view.HelloController.*;
 
 public class EditWindow implements Initializable {
+    private Repository repository;
+    public EditWindow() {
+        this.repository = new DBWorker();
+    }
     Stage stage = new Stage();
-    public ImageView imgPerson;
-    public TextField textFieldSurname = new TextField();
-    public TextField textFieldName = new TextField();
-    public TextField textFieldPatronymic = new TextField();
-    public TextField textFieldNickname = new TextField();
-    public DatePicker textFieldDateOfBirth = new DatePicker();
-    public DatePicker textFieldDateOfDeath = new DatePicker();
-    public TextArea textFieldInfo = new TextArea();
-    public Button BtnSave = new Button();
-    public People person;
+    @FXML
+    private ImageView imgPerson;
+    @FXML
+    private TextField textFieldSurname = new TextField();
+    @FXML
+    private TextField textFieldName = new TextField();
+    @FXML
+    private TextField textFieldPatronymic = new TextField();
+    @FXML
+    private TextField textFieldNickname = new TextField();
+    @FXML
+    private DatePicker textFieldDateOfBirth = new DatePicker();
+    @FXML
+    private DatePicker textFieldDateOfDeath = new DatePicker();
+    @FXML
+    private TextArea textFieldInfo = new TextArea();
+    @FXML
+    private Button BtnSave = new Button();
+    private People person;
     private String filePath;
     private static int idPerson;
     private String dateOfBirthText;
     private String dateOfDeathText;
     private boolean flag = true;
     private static String gender;
-    private DBWorker dbWorker = new DBWorker();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -62,8 +69,6 @@ public class EditWindow implements Initializable {
         controller.textFieldNickname.setText(people.getNickname());
         controller.textFieldInfo.setText(people.getInfo());
         gender = people.getGender();
-
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (people.getDataOfBirth() != null && !people.getDataOfBirth().isEmpty()) {
             LocalDate dateOfBirth = LocalDate.parse(people.getDataOfBirth(), formatter);
@@ -73,7 +78,6 @@ public class EditWindow implements Initializable {
             LocalDate dateOfDeath = LocalDate.parse(people.getDateOfDeath(), formatter);
             controller.textFieldDateOfDeath.setValue(dateOfDeath);
         }
-
         stage.getIcons().add(new Image("file:C:/Users/Наталья/Downloads/free-icon-tree-4319592.png"));
         stage.setTitle("Редактирование");
         stage.setMinWidth(320);
@@ -111,8 +115,8 @@ public class EditWindow implements Initializable {
 
         person = new People(id, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, filePath, infoText);
 
-        dbWorker.editPeople(person);
-        observablePeopleList.setAll(FXCollections.observableArrayList(dbWorker.getAllPeople()));
+        repository.editPeople(person);
+        observablePeopleList.setAll(FXCollections.observableArrayList(repository.getAllPeople()));
     }
 
     public void changeImg() {

@@ -2,6 +2,7 @@ package com.example.coursework.view;
 
 import com.example.coursework.data.*;
 import com.example.coursework.db.DBWorker;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -17,26 +18,42 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import static com.example.coursework.HelloController.*;
+import static com.example.coursework.view.HelloController.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class AddWindow implements Initializable {
-    private DBWorker dbWorker = new DBWorker();
-    public ImageView imgPerson;
-    public TextField textFieldSurname;
-    public TextField textFieldName;
-    public TextField textFieldPatronymic;
-    public TextField textFieldNickname;
-    public DatePicker textFieldDateOfBirth;
-    public DatePicker textFieldDateOfDeath;
+    private Repository repository;
+    public AddWindow() {
+        this.repository = new DBWorker();
+    }
+    @FXML
+    private ImageView imgPerson;
+    @FXML
+    private TextField textFieldSurname;
+    @FXML
+    private TextField textFieldName;
+    @FXML
+    private TextField textFieldPatronymic;
+    @FXML
+    private TextField textFieldNickname;
+    @FXML
+    private DatePicker textFieldDateOfBirth;
+    @FXML
+    private DatePicker textFieldDateOfDeath;
     private String gender;
-    public ComboBox<String> genderComboBox = new ComboBox<>();
-    public ComboBox comboBoxMom;
-    public ComboBox comboBoxDad;
-    public ComboBox comboBoxSpouse;
-    public TextArea textFieldInfo;
-    public Button BtnAdd;
+    @FXML
+    private ComboBox<String> genderComboBox = new ComboBox<>();
+    @FXML
+    private ComboBox comboBoxMom;
+    @FXML
+    private ComboBox comboBoxDad;
+    @FXML
+    private ComboBox comboBoxSpouse;
+    @FXML
+    private TextArea textFieldInfo;
+    @FXML
+    private Button BtnAdd;
     private People person;
     private String filePath;
     private Stage stage = new Stage();
@@ -47,9 +64,8 @@ public class AddWindow implements Initializable {
         genderComboBox.getItems().addAll("муж", "жен");
         genderComboBox.setValue("муж");
         try {
-            dbWorker = new DBWorker();
             ObservableList<String> moms = FXCollections.observableArrayList();
-            ResultSet resultSet = dbWorker.getPeopleData();
+            ResultSet resultSet = repository.getPeopleData();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -59,7 +75,7 @@ public class AddWindow implements Initializable {
             comboBoxMom.setItems(moms);
 
             ObservableList<String> dads = FXCollections.observableArrayList();
-            resultSet = dbWorker.getPeopleData();
+            resultSet = repository.getPeopleData();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -69,7 +85,7 @@ public class AddWindow implements Initializable {
             comboBoxDad.setItems(dads);
 
             ObservableList<String> spouses = FXCollections.observableArrayList();
-            resultSet = dbWorker.getPeopleData();
+            resultSet = repository.getPeopleData();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -114,6 +130,8 @@ public class AddWindow implements Initializable {
 
         if ((textFieldDateOfBirth.getValue() != null) && (textFieldDateOfBirth.getValue().toString().matches("^(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$"))) {
             dateOfBirthText = textFieldDateOfBirth.getValue().toString();
+        } else if (textFieldDateOfDeath.getValue() == null) {
+            dateOfBirthText = "";
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Неверный формат даты рождения", ButtonType.OK);
@@ -122,8 +140,9 @@ public class AddWindow implements Initializable {
         }
         if ((textFieldDateOfDeath.getValue() != null) && (textFieldDateOfBirth.getValue().toString().matches("^(19|20)\\d\\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$"))) {
             dateOfDeathText = textFieldDateOfDeath.getValue().toString();
-        }
-        else {
+        } else if (textFieldDateOfDeath.getValue() == null) {
+            dateOfDeathText = "";
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Неверный формат даты смерти", ButtonType.OK);
             alert.showAndWait();
             return;
@@ -133,17 +152,17 @@ public class AddWindow implements Initializable {
             String infoText = textFieldInfo.getText();
             newId++;
             person = new People(newId, surnameText, nameText, patronymicText, nicknameText, dateOfBirthText, dateOfDeathText, gender, filePath, infoText);
-            dbWorker.addPeople(person);
+            repository.addPeople(person);
 
             if (comboBoxMom.getValue() != null) {
                 String comboBoxMomValue = (String) comboBoxMom.getValue();
                 int momId = Integer.parseInt(comboBoxMomValue.substring(comboBoxMomValue.indexOf("id ") + 3, comboBoxMomValue.indexOf(":")));
 
-                dbWorker.addRelative(idRelative, newId, momId, "мать");
+                repository.addRelative(idRelative, newId, momId, "мать");
                 Kinship kinship = new Kinship(idRelative, newId, momId, "мать");
                 kinshipObservableList.add(kinship);
                 idRelative++;
-                dbWorker.addRelative(idRelative, momId, newId, "ребенок");
+                repository.addRelative(idRelative, momId, newId, "ребенок");
                 Kinship kinship1 = new Kinship(idRelative, momId, newId, "ребенок");
                 kinshipObservableList.add(kinship1);
                 idRelative++;
@@ -153,11 +172,11 @@ public class AddWindow implements Initializable {
                 String comboBoxDadValue = (String) comboBoxDad.getValue();
                 int dadId = Integer.parseInt(comboBoxDadValue.substring(comboBoxDadValue.indexOf("id ") + 3, comboBoxDadValue.indexOf(":")));
 
-                dbWorker.addRelative(idRelative, newId, dadId, "отец");
+                repository.addRelative(idRelative, newId, dadId, "отец");
                 Kinship kinship2 = new Kinship(idRelative, newId, dadId, "отец");
                 kinshipObservableList.add(kinship2);
                 idRelative++;
-                dbWorker.addRelative(idRelative, dadId, newId, "ребенок");
+                repository.addRelative(idRelative, dadId, newId, "ребенок");
                 Kinship kinship3 = new Kinship(idRelative, dadId, newId, "ребенок");
                 kinshipObservableList.add(kinship3);
                 idRelative++;
@@ -167,11 +186,11 @@ public class AddWindow implements Initializable {
                 String comboBoxSpouseValue = (String) comboBoxSpouse.getValue();
                 int spouseId = Integer.parseInt(comboBoxSpouseValue.substring(comboBoxSpouseValue.indexOf("id ") + 3, comboBoxSpouseValue.indexOf(":")));
 
-                dbWorker.addRelative(idRelative, newId, spouseId, "муж");
+                repository.addRelative(idRelative, newId, spouseId, "муж");
                 Kinship kinship4 = new Kinship(idRelative, newId, spouseId, "муж");
                 kinshipObservableList.add(kinship4);
                 idRelative++;
-                dbWorker.addRelative(idRelative, spouseId, newId, "жена");
+                repository.addRelative(idRelative, spouseId, newId, "жена");
                 Kinship kinship5 = new Kinship(idRelative, spouseId, newId, "жена");
                 kinshipObservableList.add(kinship5);
                 idRelative++;
@@ -179,11 +198,11 @@ public class AddWindow implements Initializable {
                 String comboBoxSpouseValue = (String) comboBoxSpouse.getValue();
                 int spouseId = Integer.parseInt(comboBoxSpouseValue.substring(comboBoxSpouseValue.indexOf("id ") + 3, comboBoxSpouseValue.indexOf(":")));
 
-                dbWorker.addRelative(idRelative, newId, spouseId, "жена");
+                repository.addRelative(idRelative, newId, spouseId, "жена");
                 Kinship kinship5 = new Kinship(idRelative, newId, spouseId, "жена");
                 kinshipObservableList.add(kinship5);
                 idRelative++;
-                dbWorker.addRelative(idRelative, spouseId, newId, "муж");
+                repository.addRelative(idRelative, spouseId, newId, "муж");
                 Kinship kinship4 = new Kinship(idRelative, spouseId, newId, "муж");
                 kinshipObservableList.add(kinship4);
                 idRelative++;

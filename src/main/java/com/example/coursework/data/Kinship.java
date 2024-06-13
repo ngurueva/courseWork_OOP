@@ -1,10 +1,13 @@
 package com.example.coursework.data;
 
+import java.util.ArrayList;
+
 public class Kinship {
     private int id;
     private int firstPerson;
     private int secondPerson;
     private String relatives;
+    public ArrayList<People> peopleArrayList = new ArrayList<People>();
     public Kinship(int id, int firstPerson, int secondPerson, String relatives) {
         this.id = id;
         this.firstPerson = firstPerson;
@@ -30,17 +33,5 @@ public class Kinship {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setFirstPerson(int firstPerson) {
-        this.firstPerson = firstPerson;
-    }
-
-    public void setSecondPerson(int secondPerson) {
-        this.secondPerson = secondPerson;
-    }
-
-    public void setRelatives(String relatives) {
-        this.relatives = relatives;
     }
 }

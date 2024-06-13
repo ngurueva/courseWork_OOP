@@ -1,4 +1,4 @@
-package com.example.coursework.view;
+package com.example.coursework;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

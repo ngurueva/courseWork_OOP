@@ -4,6 +4,7 @@ import com.example.coursework.data.People;
 import com.example.coursework.db.DBWorker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -17,13 +18,20 @@ import java.util.Objects;
 
 public class PersonCard{
     Stage stage = new Stage();
-    public ImageView imgPerson;
-    public Label labelFIO = new Label();
-    public Label labelNickname = new Label();
-    public Label labelYears = new Label();
-    public Label labelGender = new Label();
-    public Label labelInfo = new Label();
-    public Label familyInfo = new Label();
+    @FXML
+    private ImageView imgPerson;
+    @FXML
+    private Label labelFIO = new Label();
+    @FXML
+    private Label labelNickname = new Label();
+    @FXML
+    private Label labelYears = new Label();
+    @FXML
+    private Label labelGender = new Label();
+    @FXML
+    private Label labelInfo = new Label();
+    @FXML
+    private Label familyInfo = new Label();
 
 
     public void openCard(People people) throws IOException, SQLException {

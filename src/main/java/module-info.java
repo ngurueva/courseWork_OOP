@@ -1,4 +1,4 @@
-module com.example.coursework {
+module com.example.coursework.view {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -13,12 +13,12 @@ module com.example.coursework {
     requires java.desktop;
     requires java.sql;
 
-    opens com.example.coursework to javafx.fxml;
-    exports com.example.coursework;
     exports com.example.coursework.db;
     opens com.example.coursework.db to javafx.fxml;
     exports com.example.coursework.data;
     opens com.example.coursework.data to javafx.fxml;
     exports com.example.coursework.view;
     opens com.example.coursework.view to javafx.fxml;
+    exports com.example.coursework;
+    opens com.example.coursework to javafx.fxml;
 }

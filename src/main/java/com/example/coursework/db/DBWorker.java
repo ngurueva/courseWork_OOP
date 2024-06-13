@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import com.example.coursework.data.*;
 
 public class DBWorker implements Repository {
-    private ArrayList<People> list = new ArrayList<People>();
-    private ArrayList<Kinship> listKinship = new ArrayList<Kinship>();
-    private Repository repository;
-    public static String dbURL = "jdbc:sqlite:C:\\SQLite\\sqlite-tools-win-x64-3450200\\tree.db";
+    private static String dbURL = "jdbc:sqlite:C:\\SQLite\\sqlite-tools-win-x64-3450200\\tree.db";
     private static Connection conn;
 
-    public static void initDB(){
+    public void initDB(){
         try {
             conn = DriverManager.getConnection(dbURL);
             createTable();
@@ -38,6 +35,7 @@ public class DBWorker implements Repository {
         }
     }
     public ArrayList<People> getAllPeople() throws SQLException {
+        ArrayList<People> list = new ArrayList<People>();
         conn = DriverManager.getConnection(dbURL);
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM people;");
@@ -50,6 +48,7 @@ public class DBWorker implements Repository {
     }
 
     public ArrayList<Kinship> getAllKinship() throws SQLException{
+        ArrayList<Kinship> listKinship = new ArrayList<Kinship>();
         Connection conn = DriverManager.getConnection(dbURL);
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM relatives;");
@@ -93,33 +92,6 @@ public class DBWorker implements Repository {
         }
     }
 
-    @Override
-    public void editRelative(Kinship kinship) throws SQLException {
-        conn = DriverManager.getConnection(dbURL);
-        System.out.println("БД подключена!");
-
-        try (PreparedStatement statement = conn.prepareStatement(
-                "update relatives set id_person=?, id_relative=?, kinship=? where id=?")) {
-
-            statement.setInt(1, kinship.getFirstPerson());
-            statement.setInt(2, kinship.getSecondPerson());
-            statement.setString(3, kinship.getRelatives());
-            statement.setInt(4, kinship.getId());
-
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Данные о человеке изменены.");
-            } else {
-                System.out.println("Не удалось обновить данные о человеке.");
-            }
-        } finally {
-            if (conn != null) {
-                conn.close();
-                System.out.println("Соединения закрыты");
-            }
-        }
-    }
-
     public void editPeople(People people) throws SQLException {
         conn = DriverManager.getConnection(dbURL);
         System.out.println("БД подключена!");
@@ -153,16 +125,6 @@ public class DBWorker implements Repository {
             }
         }
     }
-
-//    @Override
-//    public ResultSet getRelative(People people) throws SQLException {
-//        conn = DriverManager.getConnection(dbURL);
-//        String sql = "SELECT people.id AS id, people.surname || ' ' || people.name || ' ' || people.patronymic AS fio, relatives.kinship AS kinship FROM relatives JOIN people ON people.id = relatives.id_person where relatives.id_relative = " + people.getId();
-//
-//        Statement statement = conn.createStatement();
-//        return statement.executeQuery(sql);
-//    }
-
     @Override
     public ResultSet getRelative(People people) throws SQLException {
         conn = DriverManager.getConnection(dbURL);

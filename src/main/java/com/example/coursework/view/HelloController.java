@@ -1,10 +1,10 @@
-package com.example.coursework;
+package com.example.coursework.view;
 
 import com.example.coursework.db.DBWorker;
 import com.example.coursework.data.*;
-import com.example.coursework.view.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,27 +17,38 @@ import java.util.ResourceBundle;
 
 
 public class HelloController implements Initializable {
-    public Button addBtn;
-    public Button editBtn;
-    public Button deleteBtn;
-    public Button openBtn;
-    public Button saveBtn;
-    public Button closeBtn;
-    public Button ImgAddBtn;
-    public Button ImgEditBtn;
-    public Button ImgDeleteBtn;
-    public Button ImgOpenBtn;
-    public Button ImgSaveBtn;
-    public Button ImgCloseBtn;
-    public TableView<People> tableView;
-    public TableColumn<People, Integer> colId;
-    public TableColumn<People, String> colSurname;
-    public TableColumn<People, String> colName;
-    public TableColumn<People, String> colPatronymic;
-    public TableColumn<People, String> colNickname;
-    public TableColumn<People, String> colAge;
-    public TableColumn<People, String> colGender;
-    private DBWorker dbWorker = new DBWorker();
+    private Repository repository;
+    public HelloController() {
+        this.repository = new DBWorker();
+    }
+    @FXML
+    private Button addBtn;
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Button deleteBtn;
+    @FXML
+    private Button ImgAddBtn;
+    @FXML
+    private Button ImgEditBtn;
+    @FXML
+    private Button ImgDeleteBtn;
+    @FXML
+    private TableView<People> tableView;
+    @FXML
+    private TableColumn<People, Integer> colId;
+    @FXML
+    private TableColumn<People, String> colSurname;
+    @FXML
+    private TableColumn<People, String> colName;
+    @FXML
+    private TableColumn<People, String> colPatronymic;
+    @FXML
+    private TableColumn<People, String> colNickname;
+    @FXML
+    private TableColumn<People, String> colAge;
+    @FXML
+    private TableColumn<People, String> colGender;
     public static int newId = 0;
     public static int idRelative = 0;
     public static boolean windowOpen = false;
@@ -54,10 +65,10 @@ public class HelloController implements Initializable {
         colNickname.setCellValueFactory(new PropertyValueFactory<>("nickname"));
         colAge.setCellValueFactory(new PropertyValueFactory<>("dataOfBirth"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        dbWorker.initDB();
+        repository.initDB();
         try {
-            peopleList = dbWorker.getAllPeople();
-            kinship = dbWorker.getAllKinship();
+            peopleList = repository.getAllPeople();
+            kinship = repository.getAllKinship();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -96,21 +107,11 @@ public class HelloController implements Initializable {
             }
         }
     }
-
     public void deletePerson() throws SQLException {
         People selectedPerson = tableView.getSelectionModel().getSelectedItem();
-        dbWorker.deletePeople(selectedPerson);
-        dbWorker.deleteRelative(selectedPerson);
+        repository.deletePeople(selectedPerson);
+        repository.deleteRelative(selectedPerson);
         observablePeopleList.remove(observablePeopleList.indexOf(selectedPerson));
-    }
-
-    public void openTree() {
-    }
-
-    public void closeTree() {
-    }
-
-    public void saveTree() {
     }
     public void clickingOnTable(MouseEvent mouseEvent) throws IOException, SQLException {
         if (mouseEvent.getClickCount() == 2) {
